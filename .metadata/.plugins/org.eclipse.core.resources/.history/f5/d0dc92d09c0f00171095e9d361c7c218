@@ -11,7 +11,7 @@ public class MyTrie {
 		trie.insert("abd");
 		trie.insert("abe");
 		trie.insert("ac");
-		System.out.println(trie.findAllMatchWithWildCard("a?b"));
+		System.out.println(trie.findAllWithPrefix("ab"));
 	}
 	TrieNode root;
 	
@@ -121,13 +121,6 @@ public class MyTrie {
 					findAllMatchDFS(next, result, index + 1, word, sb);
 					sb.deleteCharAt(sb.length() - 1);
 				}
-			}
-		} else {
-			TrieNode next = cur.children[temp - 'a'];
-			if (next != null) {
-				sb.append(temp);
-				findAllMatchDFS(next, result, index + 1, word, sb);
-				sb.deleteCharAt(sb.length() - 1);
 			}
 		}
 		

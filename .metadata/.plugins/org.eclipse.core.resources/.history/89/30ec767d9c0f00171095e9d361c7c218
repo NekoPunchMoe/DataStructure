@@ -11,7 +11,7 @@ public class MyTrie {
 		trie.insert("abd");
 		trie.insert("abe");
 		trie.insert("ac");
-		System.out.println(trie.findAllMatchWithWildCard("a?b"));
+		System.out.println(trie.findAllWithPrefix("ab"));
 	}
 	TrieNode root;
 	
@@ -96,41 +96,6 @@ public class MyTrie {
 				sb.deleteCharAt(sb.length() - 1);
 			}
 		}
-	}
-	public List<String> findAllMatchWithWildCard(String word){
-		List<String> result = new ArrayList<String>();
-		if (word == null) {
-			return result;
-		}
-		findAllMatchDFS(root, result, 0, word, new StringBuilder());
-		return result;
-	}
-	private void findAllMatchDFS(TrieNode cur, List<String> result, int index, String word, StringBuilder sb) {
-		if (index == word.length()) {
-			if (cur.isEnd) {
-				result.add(sb.toString());
-			}
-			return;
-		}
-		char temp = word.charAt(index);
-		if (temp == '?') {
-			for(int i = 0; i < cur.children.length; i++) {
-				TrieNode next = cur.children[i];
-				if (next != null) {
-					sb.append((char)(i + 'a'));
-					findAllMatchDFS(next, result, index + 1, word, sb);
-					sb.deleteCharAt(sb.length() - 1);
-				}
-			}
-		} else {
-			TrieNode next = cur.children[temp - 'a'];
-			if (next != null) {
-				sb.append(temp);
-				findAllMatchDFS(next, result, index + 1, word, sb);
-				sb.deleteCharAt(sb.length() - 1);
-			}
-		}
-		
 	}
 }
 class TrieNode {

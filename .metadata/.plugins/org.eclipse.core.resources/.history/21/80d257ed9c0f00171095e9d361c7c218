@@ -11,7 +11,7 @@ public class MyTrie {
 		trie.insert("abd");
 		trie.insert("abe");
 		trie.insert("ac");
-		System.out.println(trie.findAllMatchWithWildCard("a?b"));
+		System.out.println(trie.findAllMatchWithWildCard("a?c"));
 	}
 	TrieNode root;
 	

@@ -7,11 +7,14 @@ public class MyTrie {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		MyTrie trie = new MyTrie();
-		trie.insert("abc");
-		trie.insert("abd");
-		trie.insert("abe");
-		trie.insert("ac");
-		System.out.println(trie.findAllMatchWithWildCard("a?b"));
+		System.out.println(trie.search("abc"));
+		System.out.println(trie.insert("abc"));
+		System.out.println(trie.search("abc"));
+		System.out.println(trie.insert("abd"));
+		System.out.println(trie.search("abd"));
+		System.out.println(trie.delete("abc"));
+		System.out.println(trie.search("abc"));
+		System.out.println(trie.search("abd"));
 	}
 	TrieNode root;
 	
@@ -81,7 +84,7 @@ public class MyTrie {
 			cur = next;
 		}
 		
-		findAllWithPrefixHelper(result, cur, new StringBuilder(prefix));
+		findAllWithPrefixHelper(result, cur, new StringBuilder());
 		return result;
 	}
 	private void findAllWithPrefixHelper(List<String> result, TrieNode cur, StringBuilder sb) {
@@ -96,41 +99,6 @@ public class MyTrie {
 				sb.deleteCharAt(sb.length() - 1);
 			}
 		}
-	}
-	public List<String> findAllMatchWithWildCard(String word){
-		List<String> result = new ArrayList<String>();
-		if (word == null) {
-			return result;
-		}
-		findAllMatchDFS(root, result, 0, word, new StringBuilder());
-		return result;
-	}
-	private void findAllMatchDFS(TrieNode cur, List<String> result, int index, String word, StringBuilder sb) {
-		if (index == word.length()) {
-			if (cur.isEnd) {
-				result.add(sb.toString());
-			}
-			return;
-		}
-		char temp = word.charAt(index);
-		if (temp == '?') {
-			for(int i = 0; i < cur.children.length; i++) {
-				TrieNode next = cur.children[i];
-				if (next != null) {
-					sb.append((char)(i + 'a'));
-					findAllMatchDFS(next, result, index + 1, word, sb);
-					sb.deleteCharAt(sb.length() - 1);
-				}
-			}
-		} else {
-			TrieNode next = cur.children[temp - 'a'];
-			if (next != null) {
-				sb.append(temp);
-				findAllMatchDFS(next, result, index + 1, word, sb);
-				sb.deleteCharAt(sb.length() - 1);
-			}
-		}
-		
 	}
 }
 class TrieNode {
