@@ -1,0 +1,50 @@
+package data_structure;
+
+public class MyTrie {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	TrieNode root;
+	
+	public MyTrie() {
+		root = new TrieNode();
+	}
+	
+	public boolean search(String word) {
+		TrieNode cur = root;
+		for(int i = 0; i < word.length(); i++) {
+			if (root.children[word.charAt(i) - 'a'] != null) {
+				cur = root.children[word.charAt(i) - 'a'];
+			} else {
+				return false;
+			}
+		}
+		return cur.isEnd;
+	}
+	
+	public void insert(String word) {
+		TrieNode cur = root;
+		for(int i = 0; i < word.length(); i++) {
+			TrieNode next = cur.children[word.charAt(i) - 'a'];
+			if (next == null) {
+				next = new TrieNode();
+				cur.children[word.charAt(i) - 'a'] = next;
+			}
+			cur = next;
+			cur.counter++;
+		}
+		cur.isEnd = true;
+	}
+}
+class TrieNode {
+	int counter;
+	TrieNode[] children;
+	boolean isEnd;
+	public TrieNode() {
+		counter = 0;
+		children = new TrieNode[26];
+		isEnd = false;
+	}
+}
